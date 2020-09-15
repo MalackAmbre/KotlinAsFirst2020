@@ -66,9 +66,9 @@ fun main() {
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
-    val x1 = hours * 3600
-    val x2 = minutes * 60 + seconds
-    return x1 + x2
+    val hoursInSeconds = hours * 3600
+    val minutesInSeconds = minutes * 60 
+    return hoursInSeconds + minutesInSeconds + seconds
 }
 
 /**
@@ -79,9 +79,9 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
-    val x1 = sagenes * 48 
-    val x2 = arshins * 16 + vershoks 
-    return (x1 + x2) * 1e-2 * 4.445
+    val sagenesInVershoks = sagenes * 48 
+    val arshinsInVershoks = arshins * 16 
+    return (sagenesInVershoks + arshinsInVershoks + vershoks) * 1e-2 * 4.445
 }
 
 /**
@@ -91,10 +91,10 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(deg: Int, min: Int, sec: Int): Double {
-    val x1 = deg * PI / 180
-    val x2 = min * PI / (180 * 60)
-    val x3 = sec * PI / (180 * 3600)
-    return x1 + x2 + x3
+    val degInRadians = deg * PI / 180
+    val minInRadians = min * PI / (180 * 60)
+    val secInRadians = sec * PI / (180 * 3600)
+    return degInRadians + minInRadians + secInRadians
 }
 
 /**
@@ -111,10 +111,7 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = sqrt(s
  * Пользователь задает целое число, большее 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit(number: Int): Int {
-    val x = number % 1000
-    return x / 100
-}
+fun thirdDigit(number: Int): Int = (number % 1000) / 100
 
 /**
  * Простая (2 балла)
@@ -145,9 +142,9 @@ fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int): Int {
-    val x1 = number % 10
-    val x2 = (number / 10) % 10
-    val x3 = number / 100
-    return x1 * 100 + x2 * 10 + x3
+    val firstNumber = number % 10
+    val secondNumber = (number / 10) % 10
+    val thirdNumber = number / 100
+    return firstNumber * 100 + secondNumber * 10 + thirdNumber
 }
 
