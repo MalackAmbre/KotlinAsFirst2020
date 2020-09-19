@@ -81,7 +81,7 @@ fun ageDescription(age: Int): String {
         else -> "$age лет"
     }
 }
- 
+
 /**
  * Простая (2 балла)
  *
@@ -158,7 +158,12 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
+
 fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val x1 = sqrt(sqr(a) + sqr(b))
+    val x2 = sqrt(sqr(b) + sqr(c))
+    val x3 = sqrt(sqr(a) + sqr(c))
+    return when {
         (a > b + c) || (b > a + c) || (c > a + b) -> -1
         a == x2 || b == x3 || c == x1 -> 1
         a < x2 && b < x3 && c < x1 -> 0
@@ -181,5 +186,5 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
         a in c..d && b in c..d -> b - a
         a in c..d && b >= d -> d - a
         else -> -1
-    }   
+    }
 }
