@@ -68,8 +68,18 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
-
+fun ageDescription(age: Int): String {
+    return when {
+        age == 1 -> "1 год"
+        age in 2..4 -> "$age года"
+        age in 5..20 -> "$age лет"
+        age in 110..120 -> "$age лет"
+        age % 10 == 1 -> "$age год"
+        age % 10 in 2..4 -> "$age года"
+        else -> "$age лет"
+    }
+}
+ 
 /**
  * Простая (2 балла)
  *
@@ -81,7 +91,17 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val x1 = t1 * v1
+    val x2 = t2 * v2
+    val x3 = t3 * v3
+    val sHalf = (x1 + x2 + x3) / 2
+    return when {
+        sHalf <= x1 -> sHalf / v1
+        sHalf > (x1) && sHalf <= (x1 + x2) -> t1 + (sHalf - x1) / v2
+        else -> t1 + t2 + (sHalf - x2 - x1) / v3
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -96,7 +116,14 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int {
+    return when {
+        ((kingX == rookX1) || (kingY == rookY1)) && ((kingX == rookX2) || (kingY == rookY2)) -> 3
+        (kingX == rookX2) || (kingY == rookY2) -> 2
+        (kingX == rookX1) || (kingY == rookY1) -> 1
+        else -> 0
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -112,7 +139,14 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    return when {
+        abs(kingX - bishopX) == abs(kingY - bishopY) && (kingX == rookX || kingY == rookY) -> 3
+        abs(kingX - bishopX) == abs(kingY - bishopY) -> 2
+        (kingX == rookX || kingY == rookY) -> 1
+        else -> 0
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -122,7 +156,13 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+        (a > b + c) || (b > a + c) || (c > a + b) -> -1
+        a == x2 || b == x3 || c == x1 -> 1
+        a < x2 && b < x3 && c < x1 -> 0
+        else -> 2
+    }
+}
 
 /**
  * Средняя (3 балла)
@@ -132,4 +172,12 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    return when {
+        c in a..b && d in a..b -> d - c
+        c in a..b && d >= b -> b - c
+        a in c..d && b in c..d -> b - a
+        a in c..d && b >= d -> d - a
+        else -> -1
+    }   
+}
