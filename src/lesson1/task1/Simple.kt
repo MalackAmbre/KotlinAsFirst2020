@@ -92,8 +92,8 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
  */
 fun angleInRadian(deg: Int, min: Int, sec: Int): Double {
     val degInRadians = deg * PI / 180
-    val minInRadians = min * PI / (180 * 60)
-    val secInRadians = sec * PI / (180 * 3600)
+    val minInRadians = min * PI / 180 / 60
+    val secInRadians = sec * PI / 180 / 3600
     return degInRadians + minInRadians + secInRadians
 }
 
@@ -103,8 +103,10 @@ fun angleInRadian(deg: Int, min: Int, sec: Int): Double {
  * Найти длину отрезка, соединяющего точки на плоскости с координатами (x1, y1) и (x2, y2).
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
-fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = 
-sqrt(sqr(x2 - x1) + sqr(y2 - y1))
+fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
+    val x = sqr(x2 - x1) + sqr(y2 - y1)
+    return sqrt(x)
+}
 
 /**
  * Простая (2 балла)
