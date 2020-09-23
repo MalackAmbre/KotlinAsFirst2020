@@ -36,8 +36,7 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
-    (x1 == x2) || (y1 == y2) || abs(x1 - x2) == abs(y1 - y2)
-
+    x1 == x2 || y1 == y2 || abs(x1 - x2) == abs(y1 - y2)
 
 /**
  * Простая (2 балла)
@@ -49,7 +48,7 @@ fun daysInMonth(month: Int, year: Int): Int {
     return when (month) {
         1, 3, 5, 7, 8, 10, 12 -> 31
         4, 6, 9, 11 -> 30
-        else -> if ((year % 400 == 0) || (year % 4 == 0) && (year % 100 != 0)) 29 else 28
+        else -> if (year % 400 == 0 || year % 4 == 0 && year % 100 != 0) 29 else 28
     }
 }
 
@@ -75,8 +74,8 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    val length = min(min(a, b), c)
-    val width = max(max(a, b), c)
+    val length = minOf(a, b, c)
+    val width = maxOf(a, b, c)
     val height = a + b + c - length - width
     val holeLength = min(r, s)
     val holeHigh = max(r, s)
