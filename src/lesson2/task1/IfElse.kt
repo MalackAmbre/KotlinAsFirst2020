@@ -94,14 +94,11 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    val x1 = t1 * v1
-    val x2 = t2 * v2
-    val x3 = t3 * v3
-    val sHalf = (x1 + x2 + x3) / 2
+    val sHalf = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     return when {
-        sHalf <= x1 -> sHalf / v1
-        sHalf > (x1) && sHalf <= (x1 + x2) -> t1 + (sHalf - x1) / v2
-        else -> t1 + t2 + (sHalf - x2 - x1) / v3
+        sHalf <= t1 * v1 -> sHalf / v1
+        sHalf > t1 * v1 && sHalf <= (t1 * v1 + t2 * v2) -> t1 + (sHalf - t1 * v1) / v2
+        else -> t1 + t2 + (sHalf - t2 * v2 - t1 * v1) / v3
     }
 }
 
@@ -120,9 +117,9 @@ fun whichRookThreatens(
     rookX2: Int, rookY2: Int
 ): Int {
     return when {
-        ((kingX == rookX1) || (kingY == rookY1)) && ((kingX == rookX2) || (kingY == rookY2)) -> 3
-        (kingX == rookX2) || (kingY == rookY2) -> 2
-        (kingX == rookX1) || (kingY == rookY1) -> 1
+        kingX == rookX1 || kingY == rookY1 && kingX == rookX2 || kingY == rookY2 -> 3
+        kingX == rookX2 || kingY == rookY2 -> 2
+        kingX == rookX1 || kingY == rookY1 -> 1
         else -> 0
     }
 }
@@ -145,7 +142,7 @@ fun rookOrBishopThreatens(
     return when {
         abs(kingX - bishopX) == abs(kingY - bishopY) && (kingX == rookX || kingY == rookY) -> 3
         abs(kingX - bishopX) == abs(kingY - bishopY) -> 2
-        (kingX == rookX || kingY == rookY) -> 1
+        kingX == rookX || kingY == rookY -> 1
         else -> 0
     }
 }
