@@ -78,5 +78,4 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     val holeLength = min(r, s)
     val holeHigh = max(r, s)
     return length <= holeLength && height <= holeHigh
-    
 }
