@@ -2,6 +2,10 @@
 
 package lesson3.task1
 
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.floor
+import kotlin.math.ceil
 import kotlin.math.sqrt
 
 // Урок 3: циклы
