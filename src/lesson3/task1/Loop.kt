@@ -2,12 +2,8 @@
 
 package lesson3.task1
 
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.floor
-import kotlin.math.ceil
-import kotlin.math.sqrt
-import kotlin.math.sqr
+import lesson1.task1.sqr
+import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -85,7 +81,6 @@ fun digitNumber(n: Int): Int {
         number /= 10
     }
     return count
-
 }
 
 /**
@@ -159,6 +154,7 @@ fun collatzSteps(x: Int): Int {
             number = variable
         } while (number > 1)
     }
+
     return sumSteps
 }
 
@@ -255,7 +251,6 @@ fun hasDifferentDigits(n: Int): Boolean {
     }
     return false
 }
-
 
 /**
  * Средняя (4 балла)
