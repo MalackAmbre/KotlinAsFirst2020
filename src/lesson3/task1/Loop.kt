@@ -7,6 +7,7 @@ import kotlin.math.min
 import kotlin.math.floor
 import kotlin.math.ceil
 import kotlin.math.sqrt
+import kotlin.math.sqr
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -21,7 +22,7 @@ import kotlin.math.sqrt
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result = result * i // Please do not fix in master
+        result *= i // Please do not fix in master
     }
     return result
 }
@@ -94,11 +95,14 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    return when {
-        n <= 2 -> 1
-        else -> fib(n - 2) + fib(n - 1)
-
+    var f1 = 1
+    var f2 = 1
+    for (i in 2..n) {
+        val inter = f1 + f2
+        f1 = f2
+        f2 = inter
     }
+    return f1
 }
 
 /**
@@ -145,22 +149,18 @@ fun collatzSteps(x: Int): Int {
     if (x <= 1) return 0
     else {
         do {
-            if (number % 2 == 0) {
-                variable = number / 2
-                sumSteps++
+            variable = if (number % 2 == 0) {
+                number / 2
+            } else {
+                number * 3 + 1
             }
+            sumSteps++
 
-            if (number % 2 != 0) {
-                variable = number * 3 + 1
-                sumSteps++
-            }
             number = variable
         } while (number > 1)
     }
-
     return sumSteps
 }
-
 
 /**
  * Средняя (3 балла)
@@ -244,7 +244,18 @@ fun isPalindrome(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    if (n <= 9) return false
+    val lastN = n % 10
+    var number = n
+    while (number > 0) {
+        if (number % 10 != lastN)
+            return true
+        number /= 10
+    }
+    return false
+}
+
 
 /**
  * Средняя (4 балла)
@@ -255,7 +266,20 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    val angle = x % (2 * PI)
+    var sum = 0.0
+    var deps = angle
+    var n = 3.0
+
+    while (abs(deps) >= abs(eps)) {
+
+        sum += deps
+        deps *= -1 * sqr(angle) / ((n - 1) * n)
+        n += 2
+    }
+    return sum
+}
 
 /**
  * Средняя (4 балла)
@@ -266,7 +290,20 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    val angle = x % (2 * PI)
+    var sum = 0.0
+    var deps = 1.0
+    var n = 2.0
+
+    while (abs(deps) >= abs(eps)) {
+
+        sum += deps
+        deps *= -1 * sqr(angle) / ((n - 1) * n)
+        n += 2
+    }
+    return sum
+}
 
 /**
  * Сложная (4 балла)
