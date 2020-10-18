@@ -120,14 +120,26 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double {
+    val a = v.map { it * it }
+    when {
+        sqrt(a.sum()) == 0.0 -> listOf<Double>()
+        else -> sqrt(a.sum())
+    }
+    return sqrt(a.sum())
+}
 
 /**
  * Простая (2 балла)
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double {
+    return when {
+        list.isEmpty() -> 0.0
+        else -> list.sum() / list.size
+    }
+}
 
 /**
  * Средняя (3 балла)
@@ -137,7 +149,14 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): List<Double> {
+    val average = mean(list)
+    for (i in 0 until list.size) {
+        list[i] = list[i] - average
+    }
+    return list
+}
+
 
 /**
  * Средняя (3 балла)
@@ -168,7 +187,12 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+    for (i in 1 until list.size) {
+        list[i] = list[i] + list[i - 1]
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -186,7 +210,18 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    val mutableList = mutableListOf<Int>()
+    var number = n
+    var i = 2
+    while (number >= 2) {
+        if (number % i == 0) {
+            mutableList.add(i)
+            number /= i
+        } else i++
+    }
+    return mutableList.joinToString(separator = "*")
+}
 
 /**
  * Средняя (3 балла)
