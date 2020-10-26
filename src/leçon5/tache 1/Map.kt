@@ -365,6 +365,6 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *   bagPacking(
  *     mapOf("Кубок" to (500 to 2000), "Слиток" to (1000 to 5000)),
  *     450
- *   ) -> emptySet()
+ *   ) -> emptySet() 
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
