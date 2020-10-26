@@ -224,7 +224,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     for (char in word) {
-        if (char !in chars) return false
+        if (char.toLowerCase() !in chars.map { it.toLowerCase() }) return false
     }
     return true
 }
@@ -291,10 +291,34 @@ fun hasAnagrams(words: List<String>): Boolean = TODO()
  *          "GoodGnome" to setOf()
  *        )
  */
-fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
+fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> {
+    var lFriend1 = listOfKnowl(friends)
+    var lFriend2 = listOfKnowl(lFriend1)
+    while (lFriend1 != lFriend2) {
+        lFriend1 = lFriend2
+        lFriend2 = listOfKnowl(lFriend1)
+    }
+    return lFriend1
+}
+
+fun listOfKnowl(friends: Map<String, Set<String>>): Map<String, Set<String>> {
+    val knowledge: MutableMap<String, Set<String>> = mutableMapOf()
+    for ((k, v) in friends) {
+        knowledge[k] = v
+        for (i in v) {
+            if (friends.containsKey(i)) {
+                if (friends[i] != null) {
+                    knowledge[k] = v + (friends[i] ?: error("")) - k
+                }
+            } else knowledge[i] = setOf()
+        }
+    }
+    return knowledge
+}
 
 /**
- * Сложная (6 баллов)
+ *
+ * * Сложная (6 баллов)
  *
  * Для заданного списка неотрицательных чисел и числа определить,
  * есть ли в списке пара чисел таких, что их сумма равна заданному числу.
@@ -344,4 +368,3 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *   ) -> emptySet()
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
-
