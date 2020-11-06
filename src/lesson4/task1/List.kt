@@ -122,10 +122,6 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  */
 fun abs(v: List<Double>): Double {
     val a = v.map { it * it }
-    when {
-        sqrt(a.sum()) == 0.0 -> listOf<Double>()
-        else -> sqrt(a.sum())
-    }
     return sqrt(a.sum())
 }
 
