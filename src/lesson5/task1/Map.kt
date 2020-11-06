@@ -306,7 +306,6 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
     }
     return lFriend1
 }
-
 fun listOfKnowl(friends: Map<String, Set<String>>): Map<String, Set<String>> {
     val knowledge: MutableMap<String, Set<String>> = mutableMapOf()
     for ((k, v) in friends) {
@@ -321,6 +320,7 @@ fun listOfKnowl(friends: Map<String, Set<String>>): Map<String, Set<String>> {
     }
     return knowledge
 }
+
 
 /**
  *
