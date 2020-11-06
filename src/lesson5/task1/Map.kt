@@ -125,6 +125,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     for ((k, v) in a) {
         if (k in b && v == b[k]) return true
         else if (a == null) return true
+        else if (b == null) return true
     }
     return false
 }
