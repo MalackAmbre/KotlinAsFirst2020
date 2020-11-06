@@ -311,17 +311,17 @@ fun listOfKnowl(friends: Map<String, Set<String>>): Map<String, Set<String>> {
     for ((k, v) in friends) {
         knowledge[k] = v
         for (i in v) {
+
             if (friends.containsKey(i)) {
-                if (friends[i] != null) {
-                    knowledge[k] = v + (friends[i] ?: error("")) - k
+                val ifriends = friends[i]
+                if (ifriends != null) {
+                    knowledge[k] = knowledge[k]!! + ifriends - k
                 }
             } else knowledge[i] = setOf()
         }
     }
     return knowledge
 }
-
-
 /**
  *
  * * Сложная (6 баллов)
