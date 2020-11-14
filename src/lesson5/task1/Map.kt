@@ -2,8 +2,6 @@
 
 package lesson5.task1
 
-import kotlin.math.max
-import kotlin.math.min
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -341,14 +339,14 @@ fun listOfKnowl(friends: Map<String, Set<String>>): Map<String, Set<String>> {
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    for (i in list.indices) {
-        val otherNum = number - list[i]
-        for (e in list) {
-            if (e == otherNum && list.indexOf(e) != i) {
-                val a = min(i, list.indexOf(e))
-                val b = max(i, list.indexOf(e))
-                return Pair(a, b)
-            }
+    val myList = list.toSet()
+    for (element in myList) {
+        val otherNum = number - element
+        if (myList.contains(otherNum) && otherNum != element) {
+            val a = myList.indexOf(element)
+            val b = myList.indexOf(otherNum)
+            
+            return if (a < b) a to b else b to a
         }
     }
     return Pair(-1, -1)
