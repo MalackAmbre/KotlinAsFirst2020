@@ -175,7 +175,7 @@ fun mostExpensive(description: String): String = TODO()
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int fun fromRoman(roman: String): Int {
+fun fromRoman(roman: String): Int {
     if (!roman.all { itChar -> "IVXLCDM".contains(itChar) })
         return -1
     for (char in roman)
@@ -211,7 +211,12 @@ fun fromRoman(roman: String): Int fun fromRoman(roman: String): Int {
         if (j == numberList.size - 1) break
         sign = if (numberList[j] <= numberList[j + 1]) "+"
         else "-"
+
+
     }
+    return if (ans != 0) ans else -1
+}
+
 
 /**
  * Очень сложная (7 баллов)
