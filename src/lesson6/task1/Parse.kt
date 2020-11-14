@@ -175,7 +175,43 @@ fun mostExpensive(description: String): String = TODO()
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int fun fromRoman(roman: String): Int {
+    if (!roman.all { itChar -> "IVXLCDM".contains(itChar) })
+        return -1
+    for (char in roman)
+        if (char !in "IVXLCDM")
+            return -1
+    val romanList = roman.split("").reversed()
+    val numberList = mutableListOf<Int>()
+    var i = 0
+    var ans = 0
+    while (i < romanList.size - 1) {
+        val res = when (romanList[i]) {
+            "M" -> 1000
+            "D" -> 500
+            "C" -> 100
+            "L" -> 50
+            "X" -> 10
+            "V" -> 5
+            "I" -> 1
+            else -> 0
+        }
+        numberList.add(res)
+        i++
+    }
+    var number: Int
+    var sign = "+"
+    for (j in 0 until numberList.size) {
+        number = numberList[j]
+        ans += when (sign) {
+            "+" -> number
+            "-" -> -number
+            else -> 0
+        }
+        if (j == numberList.size - 1) break
+        sign = if (numberList[j] <= numberList[j + 1]) "+"
+        else "-"
+    }
 
 /**
  * Очень сложная (7 баллов)
