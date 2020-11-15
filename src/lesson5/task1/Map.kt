@@ -162,14 +162,11 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
     val bb = b.toSet()
     val aa = a.toSet()
     for (i in aa) {
-        for (f in bb) {
-            if (i == f) {
-                whoAreInBoth.add(i)
-            } else emptyList<String>()
-        }
+        if (i in bb) whoAreInBoth.add(i)
     }
     return whoAreInBoth.toList()
 }
+
 /**
  * Средняя (3 балла)
  *
