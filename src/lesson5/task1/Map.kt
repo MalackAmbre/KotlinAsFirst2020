@@ -337,10 +337,11 @@ fun listOfKnowl(friends: Map<String, Set<String>>): Map<String, Set<String>> {
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    val listSet = list.toSet()
     for (element in list) {
         val otherNum = number - element
-        if (otherNum in (listSet - element)) {
+        val thisList = list.toMutableList()
+        thisList.remove(element)
+        if (otherNum in thisList) {
             val a = list.indexOf(element)
             val b = list.indexOf(otherNum)
             return if (a < b) a to b else b to a
