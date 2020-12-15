@@ -481,7 +481,8 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
 fun ticTacToe(InputName: String, x: Char): Boolean {
     val lines: List<String> = File(InputName).readLines()
     for (line in lines) {
-        if ("xxxxx" in line) return true
+        if (("xxxxx" in line) && (x == 'x')) return true
+        if (("ooooo" in line) && (x == 'o')) return true
     }
     var text = ""
     for (i in lines.indices) {
@@ -490,7 +491,7 @@ fun ticTacToe(InputName: String, x: Char): Boolean {
     for (i in text.indices) {
         if (text[i] == x) {
             val t1 = text[i]
-            if (i + 60 <= text.length) {
+            if (i + 60 <= text.length - 1) {
                 val t2 = text[i + 15]
                 val t3 = text[i + 30]
                 val t4 = text[i + 45]
@@ -498,13 +499,14 @@ fun ticTacToe(InputName: String, x: Char): Boolean {
                 // println(i)
                 if (t1 == t2 && t1 == t3 && t1 == t4 && t1 == t5) return true
 
+                val t7 = text[i + 14]
+                val t8 = text[i + 28]
+                val t9 = text[i + 42]
+                val t10 = text[i + 56]
 
-                if (i + 64 <= text.length) {
-                    val t7 = text[i + 14]
-                    val t8 = text[i + 28]
-                    val t9 = text[i + 42]
-                    val t10 = text[i + 56]
+                if ((i in 161..164) && (t1 == t7 && t1 == t8 && t1 == t9 && t1 == t10)) return true
 
+                if (i + 64 <= text.length - 1) {
                     val t11 = text[i + 16]
                     val t12 = text[i + 32]
                     val t13 = text[i + 48]
@@ -513,6 +515,7 @@ fun ticTacToe(InputName: String, x: Char): Boolean {
                         return true
                 }
             }
+
         }
     }
     return false
