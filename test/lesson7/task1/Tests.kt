@@ -441,4 +441,14 @@ Basic, Ruby, Swift.
 
         File("temp.txt").delete()
     }
+    
+    @Test
+    fun ticTac() {
+        assertTrue(ticTacToe("input/ttt1", 'x'))
+        assertTrue(ticTacToe("input/ttt2", 'x'))
+        assertTrue(ticTacToe("input/ttt3", 'x'))
+        assertTrue(ticTacToe("input/ttt4", 'x'))
+        assertFalse(ticTacToe("input/ttt5", 'x'))
+
+    }
 }
