@@ -449,6 +449,7 @@ Basic, Ruby, Swift.
         assertTrue(ticTacToe("input/ttt3", 'x'))
         assertTrue(ticTacToe("input/ttt4", 'x'))
         assertFalse(ticTacToe("input/ttt5", 'x'))
+        assertTrue(ticTacToe("input/ttt5", 'o'))
 
     }
 }
