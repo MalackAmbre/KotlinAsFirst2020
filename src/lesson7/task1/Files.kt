@@ -498,25 +498,24 @@ fun ticTacToe(InputName: String, x: Char): Boolean {
                 val t5 = text[i + 60]
                 // println(i)
                 if (t1 == t2 && t1 == t3 && t1 == t4 && t1 == t5) return true
-
+            }
+            if (i + 56 <= text.length - 1) {
                 val t7 = text[i + 14]
                 val t8 = text[i + 28]
                 val t9 = text[i + 42]
                 val t10 = text[i + 56]
-
                 if ((t1 == t7 && t1 == t8 && t1 == t9 && t1 == t10)) return true
-
-                if (i + 64 <= text.length - 1) {
-                    val t11 = text[i + 16]
-                    val t12 = text[i + 32]
-                    val t13 = text[i + 48]
-                    val t14 = text[i + 64]
-                    if (t1 == t11 && t1 == t12 && t1 == t13 && t1 == t14) return true
-                }
             }
 
+            if (i + 64 <= text.length - 1) {
+                val t11 = text[i + 16]
+                val t12 = text[i + 32]
+                val t13 = text[i + 48]
+                val t14 = text[i + 64]
+                if (t1 == t11 && t1 == t12 && t1 == t13 && t1 == t14) return true
+            }
         }
     }
     return false
-
 }
+
