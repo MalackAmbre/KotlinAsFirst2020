@@ -1,6 +1,6 @@
 package lesson7.task1
 
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -441,7 +441,7 @@ Basic, Ruby, Swift.
 
         File("temp.txt").delete()
     }
-    
+
     @Test
     fun ticTac() {
         assertTrue(ticTacToe("input/ttt1", 'x'))
@@ -451,5 +451,6 @@ Basic, Ruby, Swift.
         assertFalse(ticTacToe("input/ttt5", 'x'))
         assertTrue(ticTacToe("input/ttt5", 'o'))
 
-    }
+    } 
 }
+
