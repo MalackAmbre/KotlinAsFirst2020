@@ -186,35 +186,34 @@ fun mostExpensive(description: String): String = TODO()
 fun fromRoman(roman: String): Int {
     if (!roman.all { itChar -> "IVXLCDM".contains(itChar) })
         return -1
-    val romanList = roman.split("").reversed()
-    val numberList = romanList.map {
-        when (it) {
-            "M" -> 1000
-            "D" -> 500
-            "C" -> 100
-            "L" -> 50
-            "X" -> 10
-            "V" -> 5
-            "I" -> 1
-            else -> 0
-        }
-    }
-
-    var number: Int
+    val romanList = roman.reversed()
+    val map = mutableMapOf(
+        'M' to 1000,
+        'D' to 500,
+        'C' to 100,
+        'L' to 50,
+        'X' to 10,
+        'V' to 5,
+        'I' to 1,
+    )
+    var number = 0
     var sign = "+"
-
     var ans = 0
-    for (j in numberList.indices) {
-        number = numberList[j]
+    for (j in romanList.indices) {
+        val firstValue = map[romanList[j]]
+        if (firstValue != null)
+            number = firstValue
 
         ans += when (sign) {
             "+" -> number
             "-" -> -number
             else -> 0
         }
-        if (j == numberList.size - 1) break
-        sign = if (numberList[j] <= numberList[j + 1]) "+"
-        else "-"
+        if (j == romanList.length - 1) break
+        val secondValue = map[romanList[j + 1]]
+        if (firstValue != null && secondValue != null)
+            sign = if (firstValue <= secondValue) "+"
+            else "-"
     }
     return if (ans != 0) ans else -1
 }
