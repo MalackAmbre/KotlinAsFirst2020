@@ -273,65 +273,33 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var n = n
+    var num = n
     var s = ""
-    while (n >= 1) {
-        when {
-            n >= 1000 -> {
-                s += "M"
-                n -= 1000
+    val map = mutableMapOf(
+        "M" to 1000,
+        "CM" to 900,
+        "D" to 500,
+        "CD" to 400,
+        "C" to 100,
+        "XC" to 90,
+        "CM" to 900,
+        "L" to 50,
+        "XL" to 40,
+        "X" to 10,
+        "IX" to 9,
+        "V" to 5,
+        "IV" to 4,
+        "I" to 1,
+    )
+    for ((string, value) in map) {
+        while (num >= value) {
+            when {
+                num >= value -> {
+                    s += string
+                    num -= value
+                }
             }
-            n >= 900 -> {
-                s += "CM"
-                n -= 900
-            }
-            n >= 500 -> {
-                s += "D"
-                n -= 500
-            }
-            n >= 400 -> {
-                s += "CD"
-                n -= 400
-            }
-            n >= 100 -> {
-                s += "C"
-                n -= 100
-            }
-            n >= 90 -> {
-                s += "XC"
-                n -= 90
-            }
-            n >= 50 -> {
-                s += "L"
-                n -= 50
-            }
-            n >= 40 -> {
-                s += "XL"
-                n -= 40
-            }
-            n >= 10 -> {
-                s += "X"
-                n -= 10
-            }
-            n >= 9 -> {
-                s += "IX"
-                n -= 9
-            }
-            n >= 5 -> {
-                s += "V"
-                n -= 5
-            }
-            n >= 4 -> {
-                s += "IV"
-                n -= 4
-            }
-            n >= 1 -> {
-                s += "I"
-                n -= 1
-            }
-
         }
-
     }
     return s
 }
