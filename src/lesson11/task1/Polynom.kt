@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 
 package lesson11.task1
+import kotlin.math.max
+import kotlin.math.pow
 
 /**
  * Класс "полином с вещественными коэффициентами".
@@ -21,15 +23,21 @@ package lesson11.task1
  */
 class Polynom(vararg coeffs: Double) {
 
+    private val firstNonNullIndex = coeffs.indexOfFirst { it != 0.0 }
+
+    private val coeffsRevers = coeffs.reversed().take(coeffs.size - firstNonNullIndex)
+
     /**
      * Геттер: вернуть значение коэффициента при x^i
      */
-    fun coeff(i: Int): Double = TODO()
+    fun coeff(i: Int): Double = coeffsRevers[i]
+
 
     /**
      * Расчёт значения при заданном x
      */
-    fun getValue(x: Double): Double = TODO()
+    fun getValue(x: Double): Double = coeffsRevers.withIndex().map { (index, value) -> value * x.pow(index) }.sum()
+
 
     /**
      * Степень (максимальная степень x при ненулевом слагаемом, например 2 для x^2+x+1).
@@ -38,27 +46,47 @@ class Polynom(vararg coeffs: Double) {
      * Слагаемые с нулевыми коэффициентами игнорировать, т.е.
      * степень 0x^2+0x+2 также равна 0.
      */
-    fun degree(): Int = TODO()
+    fun degree(): Int = coeffsRevers.size - 1
 
     /**
      * Сложение
      */
-    operator fun plus(other: Polynom): Polynom = TODO()
+    operator fun plus(other: Polynom): Polynom {
+        val highDegree = max(this.degree(), other.degree())
+        val result = mutableListOf<Double>()
+
+        for (i in 0..highDegree) {
+
+            val thisElement = if (i <= degree()) coeffsRevers[i] else 0.0
+            val otherElement = if (i <= other.degree()) other.coeffsRevers[i] else 0.0
+
+            result.add( thisElement + otherElement )
+        }
+        return Polynom(*result.reversed().toDoubleArray())
+    }
 
     /**
      * Смена знака (при всех слагаемых)
      */
-    operator fun unaryMinus(): Polynom = TODO()
+    operator fun unaryMinus(): Polynom = Polynom(*coeffsRevers.map { -it }.reversed().toDoubleArray())
 
     /**
      * Вычитание
      */
-    operator fun minus(other: Polynom): Polynom = TODO()
+    operator fun minus(other: Polynom): Polynom = this + -other
 
     /**
      * Умножение
      */
-    operator fun times(other: Polynom): Polynom = TODO()
+    operator fun times(other: Polynom): Polynom {
+        val result = Array(this.degree() + other.degree() + 1 ){ 0.0 }.toMutableList()
+
+        for (i in 0..this.degree())
+            for (j in 0..other.degree())
+                result[i + j] += this.coeffsRevers[i] * other.coeffsRevers[j]
+
+        return Polynom(*result.reversed().toDoubleArray())
+    }
 
     /**
      * Деление
@@ -68,20 +96,53 @@ class Polynom(vararg coeffs: Double) {
      *
      * Если A / B = C и A % B = D, то A = B * C + D и степень D меньше степени B
      */
-    operator fun div(other: Polynom): Polynom = TODO()
+    operator fun div(other: Polynom): Polynom = divideWithRemainder(other)[0]!!
 
     /**
      * Взятие остатка
      */
-    operator fun rem(other: Polynom): Polynom = TODO()
+    operator fun rem(other: Polynom): Polynom = divideWithRemainder(other)[1]!!
+
+    private fun divideWithRemainder(p: Polynom): Array<Polynom?> {
+        val answer: Array<Polynom?> = arrayOfNulls(2)
+        val m = degree()
+        val n: Int = p.degree()
+        if (m < n) {
+            val q = doubleArrayOf(0.0)
+            answer[0] = Polynom(*q)
+            answer[1] = p
+            return answer
+        }
+        val quotient = DoubleArray(m - n + 1)
+        val coef = DoubleArray(m + 1)
+        for (k in 0..m) {
+            coef[k] = coeffsRevers[k]
+        }
+        val norm: Double = 1 / p.coeff(n)
+        for (k in m - n downTo 0) {
+            quotient[k] = coef[n + k] * norm
+            for (j in n + k - 1 downTo k) {
+                coef[j] -= quotient[k] * p.coeff(j - k)
+            }
+        }
+        val remainder = DoubleArray(n)
+        for (k in 0 until n) {
+            remainder[k] = coef[k]
+        }
+        answer[0] = Polynom(*quotient.reversed().toDoubleArray())
+        answer[1] = Polynom(*remainder.reversed().toDoubleArray())
+        return answer
+    }
 
     /**
      * Сравнение на равенство
      */
-    override fun equals(other: Any?): Boolean = TODO()
+    override fun equals(other: Any?): Boolean {
+        return other is Polynom && (this === other || this.coeffsRevers == other.coeffsRevers)
+    }
 
     /**
      * Получение хеш-кода
      */
-    override fun hashCode(): Int = TODO()
+    override fun hashCode(): Int = coeffsRevers.hashCode()
 }
